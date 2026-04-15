@@ -1,0 +1,265 @@
+/* css/style.css */
+
+/* 1. 更新色板變量為明亮國風主題 */
+:root {
+    --theme-pink: #fa7ab4;
+    --theme-teal: #49ba9f;
+    --theme-blue: #60c0df;
+    --theme-text: #363637; /* 主要文字顏色改為深灰 */
+    --theme-card-bg: rgba(255, 255, 255, 0.85); /* 卡片改為半透明純白，帶點毛玻璃感 */
+    --theme-border: rgba(250, 122, 180, 0.3); /* 邊框改為淡粉色 */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+body {
+    /* 使用漸變背景模仿圖中的粉白青雲彩效果 */
+    background: linear-gradient(180deg, var(--theme-pink) 0%, #ffffff 50%, #a0eccc 100%);
+    color: var(--theme-text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.quiz-container {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.header-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: var(--theme-text); /* 進度條文字改為粉色 */
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.question-card {
+    background-color: var(--theme-card-bg);
+    border: 1px solid var(--theme-border);
+    border-radius: 12px;
+    padding: 40px 30px;
+    /* 陰影改為非常柔和的粉灰色，讓卡片浮起來 */
+    box-shadow: 0 10px 30px rgba(250, 122, 180, 0.15);
+    /* 加入一點背景模糊效果 (如果瀏覽器支援) */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.question-text {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+    line-height: 1.5;
+    color: var(--theme-text); /* 題目字體為深灰 */
+}
+
+.options-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.option-btn {
+    background-color: #ffffff;
+    /* 選項邊框改為淡淡的深灰色 */
+    border: 1px solid rgba(54, 54, 55, 0.15);
+    border-radius: 8px;
+    padding: 18px 20px;
+    color: var(--theme-text);
+    font-size: 16px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    /* 選項也加一點輕微的陰影 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.option-btn .option-letter {
+    font-weight: bold;
+    margin-right: 15px;
+    color: var(--theme-teal); /* 字母顏色用粉色點綴 */
+}
+
+.option-btn:hover {
+    border-color: var(--theme-pink);
+    background-color: rgba(250, 122, 180, 0.05); /* hover 時微微泛粉 */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(250, 122, 180, 0.15);
+}
+
+.footer-hint {
+    text-align: center;
+    font-size: 12px;
+    color: rgba(54, 54, 55, 0.4); /* 底部提示改為半透明的深灰 */
+    margin-top: 10px;
+    letter-spacing: 2px;
+}
+
+.q-image {
+    max-width: 100%; /* 確保圖片寬度不會超過卡片 */
+    height: auto;    /* 保持圖片比例 */
+    border-radius: 8px; /* 加個圓角，跟卡片風格統一 */
+    margin-top: 20px; /* 和上面的文字保持一點距離 */
+    border: 1px solid rgba(8, 213, 177, 0.2); /* 加一點淡淡的邊框裝飾 */
+}
+
+/* --- 左右分欄佈局 --- */
+.content-layout {
+    display: flex;
+    gap: 30px; /* 左右兩邊的間距 */
+    align-items: center; /* 讓左右內容垂直置中 */
+}
+
+.text-section {
+    flex: 1; /* 左側自適應撐滿剩下的空間 */
+}
+
+.image-section {
+    flex: 0 0 45%; /* 右側圖片區固定佔據 45% 的寬度 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-section img {
+    max-width: 100%;
+    max-height: 400px; /* 限制最高高度，避免圖片把卡片拉得太長 */
+    object-fit: contain; /* 確保圖片比例正常 */
+    border-radius: 8px;
+    border: 1px solid var(--theme-border);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* 題目文字不再需要置中，改為靠左對齊會更好看 */
+.question-text {
+    text-align: left; 
+}
+
+/* --- 手機端適配 (螢幕小於 768px 時) --- */
+@media (max-width: 768px) {
+    .content-layout {
+        flex-direction: column; /* 把左右排版變成上下排版 */
+    }
+    .image-section {
+        flex: auto;
+        width: 100%;
+    }
+    .question-text {
+        text-align: center; /* 手機上變回置中 */
+    }
+}
+
+/* --- 音樂控制按鈕 --- */
+.bgm-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.5); /* 半透明背景 */
+    border: 1px solid var(--theme-teal); /* 青色邊框 */
+    color: var(--theme-text);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1000; /* 確保它永遠在最上層 */
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(8, 213, 177, 0.1);
+}
+
+.bgm-btn:hover {
+    background: var(--theme-teal);
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+/* --- 结果页统计图表样式 --- */
+.stat-row-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.stat-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-size: 12px;
+}
+
+.stat-label-neg { color: var(--theme-pink); opacity: 0.9; }
+.stat-label-pos { color: var(--theme-teal); opacity: 0.9; }
+.stat-name { font-weight: bold; color: var(--theme-text); font-size: 14px; letter-spacing: 1px; }
+
+/* 进度条轨道 */
+.stat-track {
+    width: 100%;
+    height: 10px;
+    background: rgba(54, 54, 55, 0.15); /* 浅灰底色 */
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 零点中轴线 */
+.stat-midline {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--theme-text);
+    z-index: 10;
+    opacity: 0.3;
+}
+
+/* 填充色块 (带动画效果) */
+.stat-fill {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    border-radius: 6px;
+    transition: width 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+    width: 0%; /* 初始为0，由 JS 注入宽度 */
+}
+
+/* 负极向左长 */
+.stat-fill.negative {
+    right: 50%;
+    background: linear-gradient(270deg, var(--theme-pink), #ff4d4d);
+    box-shadow: 0 0 8px rgba(250, 122, 180, 0.4);
+}
+
+/* 正极向右长 */
+.stat-fill.positive {
+    left: 50%;
+    background: linear-gradient(90deg, var(--theme-teal), var(--theme-blue));
+    box-shadow: 0 0 8px rgba(8, 213, 177, 0.4);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 動畫過渡保持不變 */
+.fade-out { opacity: 0; transform: translateY(-10px); transition: 0.3s; }
+.fade-in { opacity: 1; transform: translateY(0); transition: 0.3s; }

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bmti</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <audio id="bgm" loop>
+        <source src="bgm.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="bgm-btn" class="bgm-btn">🎵 BGM: OFF</button>
+    <div class="quiz-container">
+        <div class="header-area">
+            <span id="progress-text">1 / 15</span>
+            <!---div style="width: 24px; height: 24px; background-color: var(--theme-teal); border-radius: 4px; display: grid; place-items: center;">
+                <div style="width: 12px; height: 12px; background-color: var(--theme-bg);"></div>
+            </div-->
+        </div>
+
+        <div class="question-card" id="card-body">
+            <div class="content-layout">
+                
+                <div class="text-section">
+                    <div class="question-text" id="question-text">Loading...</div>
+                    <div class="options-wrapper" id="options-wrapper"></div>
+                </div>
+
+                <div class="image-section" id="image-section" style="display: none;">
+                    </div>
+
+            </div>
+        </div>
+
+        <div id="result-page" style="display: none; width: 20%; animation: fadeIn 1s;">
+
+            <div class="result-header" style="text-align: center; margin-bottom: 40px;">
+                <h1 id="result-title" style="color: var(--theme-teal); font-size: 28px; margin-bottom: 10px;">【纯度极高】没想好只有一个</h1>
+                <img id="result-image" src="result.png" alt="人格配图" style="width: 100%; max-width: 400px; border-radius: 12px; border: 2px solid var(--theme-blue); margin: 15px 0; box-shadow: 0 8px 20px rgba(0,0,0,0.2);">
+                <p id="result-desc" style="font-size: 14px; color: var(--theme-text); line-height: 1.6; text-align: left; padding: 10px;">
+                    恶毒又精准的点评文案占位符。你的存在本身就是对赛制最大的嘲讽，建议直接原地退役开启直播生涯...
+                </p>
+            </div>
+        
+            <div id="result-stats" style="display: flex; flex-direction: column; gap: 15px;">
+                </div>
+            
+        </div>
+
+        <div class="footer-hint">南无大慈大悲救苦救难广大dls所作，有bug不修</div>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
