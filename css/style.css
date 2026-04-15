@@ -191,6 +191,12 @@ body {
     transform: scale(1.05);
 }
 
+
+
+/* 動畫過渡保持不變 */
+.fade-out { opacity: 0; transform: translateY(-10px); transition: 0.3s; }
+.fade-in { opacity: 1; transform: translateY(0); transition: 0.3s; }
+
 /* --- 结果页统计图表样式 --- */
 .stat-row-container {
     display: flex;
@@ -259,7 +265,3 @@ body {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
-
-/* 動畫過渡保持不變 */
-.fade-out { opacity: 0; transform: translateY(-10px); transition: 0.3s; }
-.fade-in { opacity: 1; transform: translateY(0); transition: 0.3s; }

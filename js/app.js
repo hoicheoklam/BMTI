@@ -48,7 +48,7 @@ function renderQuestion(index) {
         statsContainer.innerHTML = ''; // 清空容器
 
         // 设定一个理论最大分差，用于计算百分比 (假设单项最高累积10分，可根据你实际题量微调)
-        const MAX_SCORE = 20; 
+        const MAX_SCORE = 10; 
 
         // 遍历分数对象并生成 HTML
         for (let dim in finalScores) {
