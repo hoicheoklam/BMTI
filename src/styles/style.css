@@ -1,13 +1,12 @@
 /* css/style.css */
 
-/* 1. 更新色板變量為明亮國風主題 */
 :root {
     --theme-pink: #fa7ab4;
     --theme-teal: #49ba9f;
     --theme-blue: #60c0df;
-    --theme-text: #363637; /* 主要文字顏色改為深灰 */
-    --theme-card-bg: rgba(255, 255, 255, 0.85); /* 卡片改為半透明純白，帶點毛玻璃感 */
-    --theme-border: rgba(250, 122, 180, 0.3); /* 邊框改為淡粉色 */
+    --theme-text: #363637; 
+    --theme-card-bg: rgba(255, 255, 255, 0.85); 
+    --theme-border: rgba(250, 122, 180, 0.3); 
 }
 
 * {
@@ -17,24 +16,103 @@
     font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
+html, body {
+    height: 100%;
+}
+
 body {
-    /* 使用漸變背景模仿圖中的粉白青雲彩效果 */
     background: linear-gradient(180deg, var(--theme-pink) 0%, #ffffff 50%, #a0eccc 100%);
+    background-attachment: fixed; /* 关键：确保滚动到底部时背景不会变成纯白断层 */
     color: var(--theme-text);
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    overflow: hidden;
+    align-items: flex-start; /* 关键：从 center 改为 flex-start，防止长内容在移动端顶部被裁切 */
+    min-height: 100dvh;      /* 关键：使用动态视口高度，无视 Safari 底部地址栏 */
+    overflow-y: auto;        /* 关键：允许超出一屏时自然滚动 */
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch; /* 优化 iOS 滚动顺滑度 */
 }
 
 .quiz-container {
     width: 100%;
     max-width: 600px;
-    padding: 20px;
+    padding: 40px 20px; /* 上下多留一点安全距离 */
+    margin: auto;       /* 关键：内容少时自动居中，内容多时正常滚动 */
     display: flex;
     flex-direction: column;
     gap: 20px;
+    min-height: 80dvh;
+}
+
+/* --- 新增：防误触与结果页滚动保护 --- */
+.options-wrapper.disabled {
+    pointer-events: none; /* 防止用户狂点导致连跳两题 */
+    opacity: 0.8;
+}
+
+.result-page-wrapper {
+    padding-bottom: 60px; /* 确保结算页面底部不会贴着手机屏幕边缘 */
+}
+
+/* --- 结果页专属卡片排版 --- */
+
+.result-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 强制内部所有元素水平居中对齐 */
+    padding: 40px 30px;  /* 保持与答题卡一致的内边距 */
+}
+
+.result-title {
+    color: var(--theme-pink); /* 标题使用主题粉色，与深灰文字区分 */
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    letter-spacing: 2px;
+    line-height: 1.4;
+}
+
+.result-image-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* 确保图片容器居中 */
+    margin-bottom: 15px;
+}
+
+.result-image-wrapper img {
+    max-width: 100%;
+    /* 限制图片最大高度，防止把卡片撑得过长 */
+    max-height: 250px; 
+    object-fit: contain;
+    border-radius: 8px;
+    border: 1px solid var(--theme-border);
+    box-shadow: 0 4px 15px rgba(250, 122, 180, 0.15); /* 淡淡的粉色发光阴影 */
+}
+
+.result-desc {
+    font-size: 14px;
+    color: rgba(54, 54, 55, 0.8); /* 略微透明的深灰色 */
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    padding: 0 10px;
+}
+
+.result-divider {
+    width: 100%;
+    border: 0;
+    height: 1px;
+    /* 从透明到淡粉色再到透明的渐变过渡线 */
+    background: linear-gradient(90deg, transparent, var(--theme-border), transparent);
+    margin-bottom: 25px;
+}
+
+.result-stats-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* 控制各个维度进度条之间的垂直间距 */
 }
 
 .header-area {
@@ -211,9 +289,9 @@ body {
     font-size: 12px;
 }
 
-.stat-label-neg { color: var(--theme-pink); opacity: 0.9; }
-.stat-label-pos { color: var(--theme-teal); opacity: 0.9; }
-.stat-name { font-weight: bold; color: var(--theme-text); font-size: 14px; letter-spacing: 1px; }
+.stat-label-neg { color: var(--theme-pink); opacity: 0.9; font-weight: bold; }
+.stat-label-pos { color: var(--theme-teal); opacity: 0.9; font-weight: bold; }
+.stat-name { font-weight: bold; color: var(--theme-text); font-size: 12px; letter-spacing: 1px; }
 
 /* 进度条轨道 */
 .stat-track {
@@ -243,7 +321,7 @@ body {
     height: 100%;
     top: 0;
     border-radius: 6px;
-    transition: width 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: width 2.5s cubic-bezier(0.25, 0.8, 0.25, 1);
     width: 0%; /* 初始为0，由 JS 注入宽度 */
 }
 
@@ -265,3 +343,8 @@ body {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+.hidden {
+    display: none !important;
+}
+

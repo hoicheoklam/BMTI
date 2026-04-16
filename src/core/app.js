@@ -43,11 +43,17 @@ function handleAnswer(selectedOption) {
 }
 
 function showResults() {
-    // 1. 隐藏答题卡和进度条
-    if (questionCard) questionCard.hide();
-    if (progressBar) progressBar.hide();
+    // 1. 彻底隐藏答题卡及相关 UI 组件 (Vanilla JS 方式)
+    const questionCardDOM = document.querySelector('.question-card');
+    if (questionCardDOM) questionCardDOM.style.display = 'none';
+
+    const headerAreaDOM = document.querySelector('.header-area'); // 进度条通常在 header-area 里
+    if (headerAreaDOM) headerAreaDOM.style.display = 'none';
+
     const footerHint = document.querySelector('.footer-hint');
     if (footerHint) footerHint.style.display = 'none';
+
+    // 如果你在 engine.js 内部，且有存放容器的引用，也可以直接隐藏整个 .quiz-container 里的不需要部分
 
     // 2. 获取最终得分
     const finalScores = engine.getResults();
@@ -55,8 +61,14 @@ function showResults() {
 
     // 3. 显示结果页容器并强制置顶
     const resultPage = document.getElementById('result-page');
-    if (resultPage) resultPage.style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (resultPage) {
+        resultPage.style.display = 'block'; // 或者 'flex'，取决于你的 CSS
+    }
+    
+    // 确保平滑滚动到顶部，带一点延迟以防 DOM 还没渲染完
+    setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 50);
 
     // 4. 设定结果配图 (注意路径要对上你的新结构)
     const resultImage = document.getElementById('result-image');
