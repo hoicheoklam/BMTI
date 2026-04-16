@@ -1,4 +1,4 @@
-// src/components/questioncard.js
+// src/components/QuestionCard.js
 export class QuestionCard {
     constructor(elements) {
         this.questionText = document.getElementById(elements.textId);
